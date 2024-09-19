@@ -8,10 +8,12 @@ import tools.vitruv.change.composite.description.VitruviusChange;
 
 /**
  * A model repository that can be changed by applying @{link VitruviusChange}s.
- * {@link ChangePropagationListener}s can be registered to 
- * receive notifications about changes to the model repository.
+ * 
+ * {@link ChangePropagationListener}s and {@link ChangePropagationObserver}s can be registered to 
+ * receive notifications about changes to the model repository, and about the status of single
+ * {@link ChangePropagationRule}s.
  */
-public interface ChangeableModelRepository {
+public interface ChangeableModelRepository extends ChangePropagationObservableRegistry {
 	/**
 	 * Propagates the given change to the model repository. This will apply the
 	 * given {@link VitruviusChange} to the underlying resources and may execute

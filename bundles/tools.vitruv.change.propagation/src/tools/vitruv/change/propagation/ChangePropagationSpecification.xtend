@@ -6,7 +6,8 @@ import tools.vitruv.change.composite.MetamodelDescriptor
 import tools.vitruv.change.correspondence.Correspondence
 import tools.vitruv.change.correspondence.view.EditableCorrespondenceModelView
 import tools.vitruv.change.interaction.UserInteractor
-import tools.vitruv.change.propagation.ChangePropagationSpecificationComponent
+import tools.vitruv.change.composite.propagation.ChangePropagationObservable
+import tools.vitruv.change.composite.propagation.ChangePropagationRule
 import java.util.List
 
 /**
@@ -55,7 +56,7 @@ interface ChangePropagationSpecification extends ChangePropagationObservable {
 	 */
 	def boolean doesHandleChange(EChange<EObject> change, EditableCorrespondenceModelView<Correspondence> correspondenceModel)
 
-	def List<ChangePropagationSpecificationComponent> getChangePropagationSpecificationComponents()
+	def List<ChangePropagationRule> getChangePropagationRules()
 
 	/**
 	 * Performs modifications in target models identified by accessing the given <code>CorrespondenceModel</code>

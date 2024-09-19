@@ -19,7 +19,8 @@ import tools.vitruv.change.interaction.UserInteractionBase
 import tools.vitruv.change.interaction.UserInteractionFactory
 import tools.vitruv.change.interaction.UserInteractionListener
 import tools.vitruv.change.propagation.ChangePropagationMode
-import tools.vitruv.change.propagation.ChangePropagationObserver
+import tools.vitruv.change.composite.propagation.ChangePropagationObserver
+import tools.vitruv.change.composite.propagation.ChangePropagationObservableRegistry
 import tools.vitruv.change.propagation.ChangePropagationSpecification
 import tools.vitruv.change.propagation.ChangePropagationSpecificationProvider
 import tools.vitruv.change.propagation.ChangeRecordingModelRepository
@@ -28,7 +29,8 @@ import static com.google.common.base.Preconditions.checkState
 
 import static extension edu.kit.ipd.sdq.commons.util.java.lang.IterableUtil.*
 
-class ChangePropagator {
+
+class ChangePropagator implements ChangePropagationObservableRegistry {
 	static val logger = Logger.getLogger(ChangePropagator)
 	val ChangeRecordingModelRepository modelRepository
 	val ChangePropagationSpecificationProvider changePropagationProvider
@@ -230,6 +232,14 @@ class ChangePropagator {
 			CompositeChange<EObject, ?>: change.changes.flatMap[transactionalChangeSequence]
 			default: throw new IllegalStateException("Unexpected change type: " + change.class.simpleName)
 		}
+	}
+	
+	override registerObserver(ChangePropagationObserver observer) {
+		this.changePropagationProvider.forEach[it | registerObserver(observer)]
+	}
+	
+	override deregisterObserver(ChangePropagationObserver observer) {
+		this.changePropagationProvider.forEach[it | deregisterObserver(observer)]
 	}
 
 }

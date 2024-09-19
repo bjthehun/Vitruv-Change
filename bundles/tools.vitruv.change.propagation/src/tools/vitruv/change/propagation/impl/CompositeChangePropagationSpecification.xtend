@@ -5,7 +5,7 @@ import java.util.ArrayList
 import tools.vitruv.change.interaction.UserInteractor
 import tools.vitruv.change.propagation.ChangePropagationSpecification
 import org.apache.log4j.Logger
-import tools.vitruv.change.propagation.ChangePropagationObserver
+import tools.vitruv.change.composite.propagation.ChangePropagationObserver
 import org.eclipse.emf.ecore.EObject
 import tools.vitruv.change.propagation.ResourceAccess
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -13,7 +13,7 @@ import tools.vitruv.change.atomic.EChange
 import tools.vitruv.change.composite.MetamodelDescriptor
 import tools.vitruv.change.correspondence.view.EditableCorrespondenceModelView
 import tools.vitruv.change.correspondence.Correspondence
-import tools.vitruv.change.propagation.ChangePropagationSpecificationComponent
+import tools.vitruv.change.composite.propagation.ChangePropagationRule
 
 class CompositeChangePropagationSpecification extends AbstractChangePropagationSpecification implements ChangePropagationObserver {
 	static val logger = Logger.getLogger(CompositeChangePropagationSpecification);
@@ -107,10 +107,9 @@ class CompositeChangePropagationSpecification extends AbstractChangePropagationS
 		notifyObjectCreated(createdObject)
 	}
 	
-	override getChangePropagationSpecificationComponents() {
-		val components = new ArrayList<ChangePropagationSpecificationComponent>()
-		allProcessors.forEach[components.addAll(it.changePropagationSpecificationComponents)]
+	override getChangePropagationRules() {
+		val components = new ArrayList<ChangePropagationRule>()
+		allProcessors.forEach[components.addAll(it.changePropagationRules)]
 		return components
-	}
-	
+	}	
 }

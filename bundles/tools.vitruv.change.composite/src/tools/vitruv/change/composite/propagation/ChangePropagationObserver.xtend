@@ -1,4 +1,4 @@
-package tools.vitruv.change.propagation
+package tools.vitruv.change.composite.propagation
 
 import org.eclipse.emf.ecore.EObject
 

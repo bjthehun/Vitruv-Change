@@ -12,6 +12,7 @@ import tools.vitruv.change.atomic.uuid.Uuid;
 import tools.vitruv.change.composite.description.PropagatedChange;
 import tools.vitruv.change.composite.description.VitruviusChange;
 import tools.vitruv.change.composite.propagation.ChangePropagationListener;
+import tools.vitruv.change.composite.propagation.ChangePropagationObserver;
 import tools.vitruv.change.composite.propagation.ChangeableModelRepository;
 import tools.vitruv.change.interaction.InternalUserInteractor;
 import tools.vitruv.change.propagation.ChangePropagationSpecificationProvider;
@@ -74,6 +75,16 @@ public class DefaultChangeableModelRepository implements ChangeableModelReposito
 	public void removeChangePropagationListener(ChangePropagationListener propagationListener) {
 		checkArgument(propagationListener != null, "propagation listener must not be null");
 		changePropagationListeners.remove(propagationListener);
+	}
+
+	@Override
+	public void registerObserver(ChangePropagationObserver observer) {
+		this.changePropagator.registerObserver(observer);
+	}
+
+	@Override
+	public void deregisterObserver(ChangePropagationObserver observer) {
+		this.changePropagator.deregisterObserver(observer);
 	}
 
 }
