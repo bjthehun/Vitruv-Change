@@ -106,6 +106,12 @@ class CompositeChangePropagationSpecification extends AbstractChangePropagationS
 	override objectCreated(EObject createdObject) {
 		notifyObjectCreated(createdObject)
 	}
+
+	override consideringChangePropagationRule(ChangePropagationRule rule, EChange<EObject> change) {}
+	
+	override firingChangePropagationRule(ChangePropagationRule rule, EChange<EObject> change) {}
+
+	override appliedChangePropagationRule(ChangePropagationRule rule, EChange<EObject> change) {}
 	
 	override getChangePropagationRules() {
 		val components = new ArrayList<ChangePropagationRule>()

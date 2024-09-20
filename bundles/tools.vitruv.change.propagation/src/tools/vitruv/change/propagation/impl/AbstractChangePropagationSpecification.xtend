@@ -6,6 +6,8 @@ import tools.vitruv.change.composite.propagation.ChangePropagationObserver
 import java.util.List
 import org.eclipse.emf.ecore.EObject
 import tools.vitruv.change.composite.MetamodelDescriptor
+import tools.vitruv.change.composite.propagation.ChangePropagationRule
+import tools.vitruv.change.atomic.EChange
 
 abstract class AbstractChangePropagationSpecification implements ChangePropagationSpecification {
 	val List<ChangePropagationObserver> propagationObservers;
@@ -49,4 +51,15 @@ abstract class AbstractChangePropagationSpecification implements ChangePropagati
 		this.propagationObservers.forEach[it.objectCreated(createdObject)];
 	}
 
+	override notifyConsideringChangePropagationRule(ChangePropagationRule rule, EChange<EObject> change) {
+		this.propagationObservers.forEach[it.consideringChangePropagationRule(rule, change)]
+	}
+
+	override notifyFiringChangePropagationRule(ChangePropagationRule rule, EChange<EObject> change) {
+		this.propagationObservers.forEach[it.firingChangePropagationRule(rule, change)]
+	}
+
+	override notifyAppliedChangePropagationRule(ChangePropagationRule rule, EChange<EObject> change) {
+		this.propagationObservers.forEach[it.appliedChangePropagationRule(rule, change)]
+	}
 }

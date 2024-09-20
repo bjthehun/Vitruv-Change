@@ -28,7 +28,8 @@ import tools.vitruv.change.propagation.ChangeRecordingModelRepository
 import static com.google.common.base.Preconditions.checkState
 
 import static extension edu.kit.ipd.sdq.commons.util.java.lang.IterableUtil.*
-
+import tools.vitruv.change.composite.propagation.ChangePropagationRule
+import tools.vitruv.change.atomic.EChange
 
 class ChangePropagator implements ChangePropagationObservableRegistry {
 	static val logger = Logger.getLogger(ChangePropagator)
@@ -210,6 +211,12 @@ class ChangePropagator implements ChangePropagationObservableRegistry {
 		override objectCreated(EObject createdObject) {
 			createdObjects += createdObject
 		}
+		
+		override consideringChangePropagationRule(ChangePropagationRule rule, EChange<EObject> change) {}
+	
+		override firingChangePropagationRule(ChangePropagationRule rule, EChange<EObject> change) {}
+	
+		override appliedChangePropagationRule(ChangePropagationRule rule, EChange<EObject> change) {}
 
 		override onUserInteractionReceived(UserInteractionBase interaction) {
 			userInteractions += interaction
